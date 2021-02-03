@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-from PIL import ImageTk, Image
 import math
 import sys
 
@@ -10,8 +9,6 @@ root.configure(bg="lightblue")
 root.resizable(width=False, height=False)
 root.geometry('310x300')
 
-path = "Apps-Calc-icon.png"
-img = ImageTk.PhotoImage(Image.open(path))
 
 btns = [
 "7", "8", "9", "÷", "C", 
