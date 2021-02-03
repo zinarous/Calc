@@ -37,7 +37,7 @@ def calc(key):
 #исключение написания слов
         str1 = "-+0123456789.*/)(" 
         if calc_entry.get()[0] not in str1:
-            calc_entry.insert(END, "Это не выглядит как число, введи число!)
+            calc_entry.insert(END, "Это не выглядит как число, введи число!")
             messagebox.showerror("АШИБКА", "Это не является числом!")
 #исчисления
         try:
