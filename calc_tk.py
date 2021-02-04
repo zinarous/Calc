@@ -5,7 +5,7 @@ import sys
 
 root = Tk() 
 root.title("Калькулятор")
-root.configure(bg="lightblue")
+root.configure(bg="grey")
 root.resizable(width=False, height=False)
 root.geometry('310x300')
 
@@ -14,9 +14,9 @@ btns = [
 "7", "8", "9", "÷", "C", 
 "4", "5", "6", "×", "±",
 "1", "2", "3", "-", "xⁿ",
-"0", ".", "=", "+", "Exit",
+"0", ".", "=", "+", "√2",
 "e", "π", "sin", "cos",
-"n!", "(", ")","√2", ]
+"n!", "(", ")"]
 
 
 r = 1
@@ -25,7 +25,7 @@ for i in btns:
     rel = ""
     cmd=lambda x=i: calc(x)
     top_padding = 5
-    btn = Button(root, text=i, command = cmd, width = 7, height = 2, bg="white")
+    btn = Button(root, text=i, command = cmd, width = 7, height = 2, bg="lightgrey")
     btn.grid(row = r, column = c, pady=2, padx = 1, sticky = E)
     c += 1
     if c > 4:
@@ -48,8 +48,8 @@ def calc(key):
             result = eval(calc_entry.get())
             calc_entry.insert(END, "=" + str(result))
         except:
-            calc_entry.insert(END, "Error!")
-            messagebox.showerror("Error!", "Check the correctness of data")
+            calc_entry.insert(END, "ОШИБКА!!!")
+            messagebox.showerror("ОШИБКА!!!", "Требуется проверка правильности введенных данных")
 
     #очищение поля ввода
     elif key == "C":
@@ -78,15 +78,12 @@ def calc(key):
     elif key == "e":
         calc_entry.insert(END, math.e)
 
-    elif key == "Exit":
-        root.after(1,root.destroy)
-        sys.exit
-
     elif key == "xⁿ":
         calc_entry.insert(END, "**")
 
     elif key == "sin":
         calc_entry.insert(END, "=" + str(math.sin(int(calc_entry.get()))))
+
     elif key == "cos":
         calc_entry.insert(END, "=" + str(math.cos(int(calc_entry.get()))))
 
