@@ -4,20 +4,22 @@ class Calcul:
                 '%': (2, lambda x, y: x % y)
                 }
     
-    def parse(self, line):
+    @staticmethod
+    def parse(line):
         num = ''
         for i in line:
             if i in '1234567890.':
                 num += i
             elif num:
-                yield float(num)
+                yield float(num) #генератор
                 num = ''
             if i in Calcul.OPERATORS or i in '()':
-                yield i
+                yield i #кортеж из приоритета + функции
         if num:
             yield float(num)
     
-    def sort(self, parsed):
+    @staticmethod
+    def sort(parsed):
         tmp = []
         for i in parsed:
             if i in Calcul.OPERATORS:
@@ -37,24 +39,33 @@ class Calcul:
         while tmp:
             yield tmp.pop()
     
-    def calc(self, sort):
+    @staticmethod
+    def calc(sort):
         tmp = []
         for i in sort:
             if i in Calcul.OPERATORS:
                 y = tmp.pop()
                 x = tmp.pop()
                 tmp.append(Calcul.OPERATORS[i][1](x, y))
-            if i not in Calcul.OPERATORS:
-                return 'Неправильно введенное выражение'
             else:
                 tmp.append(i)
         return tmp[0]
     
-    
-    def calc_vivod(self, exp):
-        return self.calc(self.sort(self.parse(exp)))
+    @staticmethod
+    def calc_vivod(exp):
+        return Calcul.calc(Calcul.sort(Calcul.parse(exp)))
+
+# while True:
+#     gen = list(Calcul.parse(input()))
+#     print(gen)
 
 
-inp = input('Calculate: ')
-calc = Calcul()
-print(calc.calc_vivod(inp))
+
+if __name__ == '__main__':
+    inp = input('Calculate: ')
+    calc = Calcul()
+    print(calc.calc_vivod(inp))
+
+# gen = calc.parse(inp)
+# for i in gen:
+#     print(i)
