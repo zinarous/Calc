@@ -1,8 +1,10 @@
 class Calcul:
     OPERATORS = {'+': (1, lambda x, y: x + y), '-': (1, lambda x, y: x - y),
-                '*': (2, lambda x, y: x * y), '/': (2, lambda x, y: x / y)}
+                '*': (2, lambda x, y: x * y), '/': (2, lambda x, y: x / y),
+                '%': (2, lambda x, y: x % y)
+                }
     
-    def parse(line):
+    def parse(self, line):
         num = ''
         for i in line:
             if i in '1234567890.':
@@ -15,7 +17,7 @@ class Calcul:
         if num:
             yield float(num)
     
-    def sort(parsed):
+    def sort(self, parsed):
         tmp = []
         for i in parsed:
             if i in Calcul.OPERATORS:
@@ -35,16 +37,24 @@ class Calcul:
         while tmp:
             yield tmp.pop()
     
-    def calc(sort):
+    def calc(self, sort):
         tmp = []
         for i in sort:
             if i in Calcul.OPERATORS:
                 y = tmp.pop()
                 x = tmp.pop()
                 tmp.append(Calcul.OPERATORS[i][1](x, y))
+            if i not in Calcul.OPERATORS:
+                return 'Неправильно введенное выражение'
             else:
                 tmp.append(i)
         return tmp[0]
- 
+    
+    
+    def calc_vivod(self, exp):
+        return self.calc(self.sort(self.parse(exp)))
+
+
 inp = input('Calculate: ')
-print('Равно: ', Calcul.calc(Calcul.sort(Calcul.parse(inp))))
+calc = Calcul()
+print(calc.calc_vivod(inp))
