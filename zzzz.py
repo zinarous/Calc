@@ -1,7 +1,8 @@
+import re
+
 class Calcul:
     OPERATORS = {'+': (1, lambda x, y: x + y), '-': (1, lambda x, y: x - y),
                 '*': (2, lambda x, y: x * y), '/': (2, lambda x, y: x / y),
-                '%': (2, lambda x, y: x % y)
                 }
     
     @staticmethod
@@ -55,17 +56,21 @@ class Calcul:
     def calc_vivod(exp):
         return Calcul.calc(Calcul.sort(Calcul.parse(exp)))
 
-# while True:
-#     gen = list(Calcul.parse(input()))
-#     print(gen)
 
-
+def validate_inp(cif):
+    if cif.startswith(('+', '*', '/', '(', ')')):
+        return False
+    elif not re.match(r'^[0-9.\-+*\\]*$', cif, re.IGNORECASE):
+        return False
+    else:
+        return True
 
 if __name__ == '__main__':
     inp = input('Calculate: ')
-    calc = Calcul()
-    print(calc.calc_vivod(inp))
-
-# gen = calc.parse(inp)
-# for i in gen:
-#     print(i)
+    val = validate_inp(inp)
+    # print(val)
+    if val == True:
+        calc = Calcul()
+        print(calc.calc_vivod(inp))
+    elif val == False:
+        print('Введено неверное выражение')
