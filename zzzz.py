@@ -56,19 +56,18 @@ class Calcul:
     def calc_vivod(exp):
         return Calcul.calc(Calcul.sort(Calcul.parse(exp)))
 
-
 def validate_inp(cif):
     if cif.startswith(('+', '*', '/', '(', ')')):
         return False
-    elif not re.match(r'^[0-9.\-+*\\]*$', cif, re.IGNORECASE):
+    elif not re.match(r'[\d.]+|[\+\-\/\*\(\)]', cif, re.IGNORECASE):
         return False
     else:
         return True
 
 if __name__ == '__main__':
     inp = input('Calculate: ')
-    val = validate_inp(inp)
-    # print(val)
+    inp1 = inp.replace(' ', '')
+    val = validate_inp(inp1)
     if val == True:
         calc = Calcul()
         print(calc.calc_vivod(inp))
